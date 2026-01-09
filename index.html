@@ -21,7 +21,7 @@
         #z-m { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 10000; justify-content: center; align-items: center; }
         #z-i { max-width: 90%; max-height: 85vh; object-fit: contain; border-radius: 8px; }
         .b-v { position: absolute; top: 30px; right: 30px; background: #fff; color: #000; padding: 12px 25px; border-radius: 50px; font-weight: 900; cursor: pointer; border: none; z-index: 10001; }
-        .hidden { display: none; }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
@@ -36,91 +36,106 @@
 
     <div id="s5">
         <div class="a-b text-center">
-            <h2 class="font-black mb-8 text-xl tracking-[0.3em] text-blue-600">PROT. 67</h2>
+            <h2 class="font-black mb-8 text-xl tracking-[0.3em] text-blue-600 uppercase">System 67</h2>
+            
             <div id="l-s">
-                <input type="password" id="p-w" placeholder="KEY">
-                <button onclick="f1()" class="w-full bg-blue-600 py-4 rounded-xl font-bold">LOGIN</button>
+                <input type="password" id="p-w" placeholder="PASSWORD">
+                <button type="button" id="authBtn" class="w-full bg-blue-600 py-4 rounded-xl font-bold uppercase">Enter</button>
             </div>
+
             <div id="t-s" class="hidden">
-                <input type="text" id="i-n" placeholder="NICK">
+                <input type="text" id="i-n" placeholder="NEW NICK">
                 <input type="text" id="i-p" placeholder="AVATAR URL">
                 <input type="text" id="i-b" placeholder="BANNER URL">
                 <input type="file" id="i-f" accept="image/*">
-                <button onclick="f2()" class="w-full bg-white text-black py-3 rounded-xl font-bold mb-2 text-xs">UPDATE</button>
-                <button onclick="f3()" class="w-full bg-blue-600 py-3 rounded-xl font-bold text-xs uppercase">Post Image</button>
+                <button type="button" id="updBtn" class="w-full bg-white text-black py-3 rounded-xl font-bold mb-2 text-xs uppercase">Save Profile</button>
+                <button type="button" id="pstBtn" class="w-full bg-blue-600 py-3 rounded-xl font-bold text-xs uppercase">Post Image</button>
             </div>
-            <button onclick="f4()" class="w-full mt-8 text-zinc-800 text-[10px] font-bold uppercase">Close</button>
+            
+            <button type="button" onclick="vClose()" class="w-full mt-8 text-zinc-800 text-[10px] font-bold uppercase">Close</button>
         </div>
     </div>
 
     <div id="z-m">
-        <button class="b-v" onclick="f5()">VOLTAR</button>
+        <button class="b-v" onclick="zClose()">VOLTAR</button>
         <img id="z-i" src="">
     </div>
 
     <script>
-        let d = JSON.parse(localStorage.getItem('_s67_')) || { n: 'SAD_9O', p: 'https://via.placeholder.com/180', b: 'https://via.placeholder.com/1400x350', w: [] };
+        (function() {
+            let data = JSON.parse(localStorage.getItem('sad_v_67')) || { 
+                n: 'SAD_9O', 
+                p: 'https://via.placeholder.com/180', 
+                b: 'https://via.placeholder.com/1400x350', 
+                w: [] 
+            };
 
-        const h = (s) => {
-            let r = 0x811c9dc5;
-            for(let i=0; i<s.length; i++){ r ^= s.charCodeAt(i); r += (r<<1)+(r<<4)+(r<<7)+(r<<8)+(r<<24); }
-            return (r >>> 0).toString(16);
-        };
+            function render() {
+                document.getElementById('n1').innerText = data.n;
+                document.getElementById('s3').src = data.p;
+                document.getElementById('s1').style.backgroundImage = `url(${data.b})`;
+                document.getElementById('s4').innerHTML = data.w.map(x => `<div class="i-c" onclick="zOpen('${x}')"><img src="${x}"></div>`).join('');
+            }
 
-        const t = "3df36c7a"; 
-        const g = "6368616461646d";
+            // COMANDO SECRETO
+            let keys = "";
+            window.addEventListener('keydown', (e) => {
+                keys += e.key.toLowerCase();
+                if (keys.includes("chadadm")) {
+                    document.getElementById('s5').style.display = 'flex';
+                    keys = "";
+                }
+                if (keys.length > 15) keys = "";
+            });
 
-        function r() {
-            document.getElementById('n1').innerText = d.n;
-            document.getElementById('s3').src = d.p;
-            document.getElementById('s1').style.backgroundImage = `url(${d.b})`;
-            const g = document.getElementById('s4');
-            g.innerHTML = d.w.map(x => `<div class="i-c" onclick="f6('${x}')"><img src="${x}"></div>`).join('');
-        }
+            // LOGIN SEM REFRESH
+            document.getElementById('authBtn').onclick = function(e) {
+                e.preventDefault();
+                const pass = document.getElementById('p-w').value;
+                if(pass === "Sad_9O.chad968") {
+                    document.getElementById('l-s').classList.add('hidden');
+                    document.getElementById('t-s').classList.remove('hidden');
+                } else {
+                    vClose();
+                }
+            };
 
-        window.f1 = () => {
-            if(h(document.getElementById('p-w').value) === t) {
-                document.getElementById('l-s').classList.add('hidden');
-                document.getElementById('t-s').classList.remove('hidden');
-            } else { f4(); }
-        };
+            // UPDATE PERFIL
+            document.getElementById('updBtn').onclick = function() {
+                data.n = document.getElementById('i-n').value || data.n;
+                data.p = document.getElementById('i-p').value || data.p;
+                data.b = document.getElementById('i-b').value || data.b;
+                localStorage.setItem('sad_v_67', JSON.stringify(data));
+                render();
+                vClose();
+            };
 
-        let b = "";
-        window.onkeydown = (e) => {
-            b += e.key.toLowerCase();
-            let x = "";
-            for(let i=0; i<b.length; i++) x += b.charCodeAt(i).toString(16);
-            if (x.includes(g)) { document.getElementById('s5').style.display = 'flex'; b = ""; }
-            if (b.length > 20) b = "";
-        };
+            // POSTAR PNG
+            document.getElementById('pstBtn').onclick = function() {
+                const file = document.getElementById('i-f').files[0];
+                if(!file) return;
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    data.w.unshift(e.target.result);
+                    localStorage.setItem('sad_v_67', JSON.stringify(data));
+                    render();
+                    vClose();
+                };
+                reader.readAsDataURL(file);
+            };
 
-        window.f2 = () => {
-            d.n = document.getElementById('i-n').value || d.n;
-            d.p = document.getElementById('i-p').value || d.p;
-            d.b = document.getElementById('i-b').value || d.b;
-            localStorage.setItem('_s67_', JSON.stringify(d));
-            r(); f4();
-        };
+            window.vClose = () => {
+                document.getElementById('s5').style.display = 'none';
+                document.getElementById('p-w').value = '';
+                document.getElementById('l-s').classList.remove('hidden');
+                document.getElementById('t-s').classList.add('hidden');
+            };
 
-        window.f3 = () => {
-            const f = document.getElementById('i-f').files[0];
-            if(!f) return;
-            const rd = new FileReader();
-            rd.onload = (e) => { d.w.unshift(e.target.result); localStorage.setItem('_s67_', JSON.stringify(d)); r(); f4(); };
-            rd.readAsDataURL(f);
-        };
+            window.zOpen = (u) => { document.getElementById('z-i').src = u; document.getElementById('z-m').style.display = 'flex'; };
+            window.zClose = () => { document.getElementById('z-m').style.display = 'none'; };
 
-        window.f4 = () => {
-            document.getElementById('s5').style.display = 'none';
-            document.getElementById('p-w').value = '';
-            document.getElementById('l-s').classList.remove('hidden');
-            document.getElementById('t-s').classList.add('hidden');
-        };
-
-        window.f6 = (u) => { document.getElementById('z-i').src = u; document.getElementById('z-m').style.display = 'flex'; };
-        window.f5 = () => { document.getElementById('z-m').style.display = 'none'; };
-
-        r();
+            render();
+        })();
     </script>
 </body>
 </html>
