@@ -3,137 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elite Space | Portfolio</title>
+    <title>Portfolio Elite</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
-        #banner { width: 100%; height: 350px; background-color: #111; background-size: cover; background-position: center; border-bottom: 2px solid #222; }
-        .p-wrap { display: flex; flex-direction: column; items: center; margin-top: -100px; }
-        #pPic { width: 180px; height: 180px; border-radius: 50%; border: 8px solid #000; object-fit: cover; background: #222; }
-        .grid-works { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; padding: 40px; max-width: 1400px; margin: 0 auto; }
-        .work-item { background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 12px; overflow: hidden; transition: 0.4s; }
-        .work-item:hover { border-color: #3b82f6; transform: translateY(-5px); }
-        .work-item img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
-        
-        /* O PAINEL SÓ APARECE COM O COMANDO */
-        #secretPanel { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 9999; align-items: center; justify-content: center; backdrop-filter: blur(20px); }
-        .admin-box { width: 90%; max-width: 400px; padding: 35px; border: 1px solid #333; border-radius: 24px; background: #000; }
-        input { background: #0a0a0a !important; border: 1px solid #333 !important; color: white !important; padding: 12px; border-radius: 12px; width: 100%; margin-bottom: 12px; outline: none; }
-        .hidden { display: none; }
+        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; margin: 0; overflow: hidden; }
+        #s1 { width: 100%; height: 350px; background-color: #0a0a0a; background-size: cover; background-position: center; border-bottom: 2px solid #1a1a1a; }
+        #s2 { display: flex; flex-direction: column; items: center; margin-top: -100px; }
+        #s3 { width: 180px; height: 180px; border-radius: 50%; border: 8px solid #000; object-fit: cover; background: #111; }
+        #s4 { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; padding: 40px; max-width: 1400px; margin: 0 auto; height: calc(100vh - 450px); overflow-y: auto; }
+        #s4::-webkit-scrollbar { display: none; }
+        .i-c { background: #050505; border: 1px solid #111; border-radius: 12px; overflow: hidden; transition: 0.3s; cursor: pointer; }
+        .i-c:hover { border-color: #3b82f6; }
+        .i-c img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
+        #s5 { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.99); z-index: 9999; align-items: center; justify-content: center; backdrop-filter: blur(25px); }
+        .a-b { width: 90%; max-width: 380px; padding: 30px; border: 1px solid #222; border-radius: 20px; background: #000; }
+        input { background: #080808 !important; border: 1px solid #222 !important; color: #fff !important; padding: 12px; border-radius: 10px; width: 100%; margin-bottom: 10px; outline: none; }
+        #z-m { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 10000; justify-content: center; align-items: center; padding: 20px; }
+        #z-i { max-width: 95%; max-height: 90vh; object-fit: contain; border-radius: 10px; box-shadow: 0 0 50px rgba(0,0,0,1); }
+        .b-v { position: absolute; top: 20px; right: 20px; background: #fff; color: #000; padding: 10px 20px; border-radius: 50px; font-weight: 900; cursor: pointer; border: none; }
     </style>
 </head>
 <body>
 
-    <div id="banner"></div>
-    
-    <div class="p-wrap">
-        <img id="pPic" src="https://via.placeholder.com/180">
-        <h1 id="pNick" class="text-4xl font-black mt-4 italic tracking-tighter text-white uppercase">SAD_9O</h1>
+    <div id="s1"></div>
+    <div id="s2">
+        <img id="s3" src="">
+        <h1 id="n1" class="text-4xl font-black mt-4 italic tracking-tighter uppercase"></h1>
         <div class="h-1.5 w-24 bg-blue-600 mt-3 rounded-full"></div>
     </div>
+    <div id="s4"></div>
 
-    <div id="grid" class="grid-works"></div>
-
-    <div id="secretPanel">
-        <div class="admin-box text-center">
-            <h2 class="font-black mb-8 text-xl tracking-widest text-blue-600">SISTEMA 67</h2>
-            
-            <div id="loginStep">
-                <input type="password" id="pass" placeholder="CHAVE">
-                <button onclick="checkPass()" class="w-full bg-blue-600 py-4 rounded-xl font-bold">ENTRAR</button>
+    <div id="s5">
+        <div class="a-b text-center">
+            <h2 class="font-black mb-8 text-xl tracking-[0.3em] text-blue-600">PROTOCOL 67</h2>
+            <div id="l-s">
+                <input type="password" id="p-w" placeholder="SECURE KEY">
+                <button onclick="v1()" class="w-full bg-blue-600 py-4 rounded-xl font-bold">AUTH</button>
             </div>
-
-            <div id="tools" class="hidden text-left">
-                <label class="text-[10px] text-gray-500 font-bold ml-1 uppercase">Nick</label>
-                <input type="text" id="newNick" placeholder="Sad_9O">
-                
-                <label class="text-[10px] text-gray-500 font-bold ml-1 uppercase">Link da Foto (URL)</label>
-                <input type="text" id="newPic" placeholder="https://...">
-                
-                <label class="text-[10px] text-gray-500 font-bold ml-1 uppercase">Link do Banner (URL)</label>
-                <input type="text" id="newBanner" placeholder="https://...">
-                
-                <label class="text-[10px] text-gray-500 font-bold ml-1 uppercase">Novo PNG</label>
-                <input type="file" id="fileIn" accept="image/*">
-                
-                <button onclick="updateProfile()" class="w-full bg-white text-black py-3 rounded-xl font-bold mb-2">SALVAR INFO</button>
-                <button onclick="postar()" class="w-full bg-blue-600 py-3 rounded-xl font-bold">MANDAR IMAGEM</button>
+            <div id="t-s" class="hidden text-left">
+                <input type="text" id="i-n" placeholder="NICK">
+                <input type="text" id="i-p" placeholder="AVATAR URL">
+                <input type="text" id="i-b" placeholder="BANNER URL">
+                <input type="file" id="i-f" accept="image/*">
+                <button onclick="v2()" class="w-full bg-white text-black py-3 rounded-xl font-bold mb-2 text-xs">UPDATE</button>
+                <button onclick="v3()" class="w-full bg-blue-600 py-3 rounded-xl font-bold text-xs">POST PNG</button>
             </div>
-            <button onclick="closeSecret()" class="w-full mt-8 text-zinc-600 text-[10px] font-bold uppercase tracking-widest">Sair do Sistema</button>
+            <button onclick="v4()" class="w-full mt-8 text-zinc-800 text-[10px] font-bold uppercase tracking-widest">EXIT</button>
         </div>
     </div>
 
+    <div id="z-m">
+        <button class="b-v" onclick="v5()">VOLTAR</button>
+        <img id="z-i" src="">
+    </div>
+
     <script>
-        // Banco de dados local
-        let data = JSON.parse(localStorage.getItem('space67_final')) || {
-            nick: 'SAD_9O',
-            pic: 'https://via.placeholder.com/180',
-            banner: 'https://via.placeholder.com/1400x350',
-            works: []
-        };
-
-        function render() {
-            document.getElementById('pNick').innerText = data.nick;
-            document.getElementById('pPic').src = data.pic;
-            document.getElementById('banner').style.backgroundImage = `url(${data.banner})`;
-            const grid = document.getElementById('grid');
-            grid.innerHTML = data.works.map(w => `<div class="work-item"><img src="${w}"></div>`).join('');
-        }
-
-        // Criptografia Fixa para a senha: Sad_9O.chad968
-        function checkPass() {
-            const p = document.getElementById('pass').value;
-            // Validação direta sem erro de cálculo
-            if(p === "Sad_9O.chad968") {
-                document.getElementById('loginStep').classList.add('hidden');
-                document.getElementById('tools').classList.remove('hidden');
-            } else {
-                alert("ACESSO NEGADO");
-                closeSecret();
-            }
-        };
-
-        // Escuta o comando de teclado: chadadm
-        let buffer = "";
-        window.addEventListener('keydown', (e) => {
-            buffer += e.key.toLowerCase();
-            if (buffer.includes("chadadm")) {
-                document.getElementById('secretPanel').style.display = 'flex';
-                buffer = "";
-            }
-            if (buffer.length > 10) buffer = buffer.substring(1);
-        });
-
-        window.closeSecret = () => {
-            document.getElementById('secretPanel').style.display = 'none';
-            document.getElementById('pass').value = '';
-            document.getElementById('loginStep').classList.remove('hidden');
-            document.getElementById('tools').classList.add('hidden');
-        };
-
-        window.updateProfile = () => {
-            data.nick = document.getElementById('newNick').value || data.nick;
-            data.pic = document.getElementById('newPic').value || data.pic;
-            data.banner = document.getElementById('newBanner').value || data.banner;
-            localStorage.setItem('space67_final', JSON.stringify(data));
-            render();
-            closeSecret();
-        };
-
-        window.postar = () => {
-            const file = document.getElementById('fileIn').files[0];
-            if(!file) return;
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                data.works.unshift(e.target.result);
-                localStorage.setItem('space67_final', JSON.stringify(data));
-                render();
-                closeSecret();
+        (function(){
+            let d = JSON.parse(localStorage.getItem('_s67')) || {
+                n: 'SAD_9O',
+                p: 'https://via.placeholder.com/180',
+                b: 'https://via.placeholder.com/1400x350',
+                w: []
             };
-            reader.readAsDataURL(file);
-        };
 
-        render();
+            const h = (s) => {
+                let r = 0x811c9dc5;
+                for(let i=0; i<s.length; i++){
+                    r ^= s.charCodeAt(i);
+                    r += (r<<1)+(r<<4)+(r<<7)+(r<<8)+(r<<24);
+                }
+                return (r >>> 0).toString(16);
+            };
+
+            const target = "3df36c7a"; 
+            const trigger = "6368616461646d";
+
+            function r1() {
+                document.getElementById('n1').innerText = d.n;
+                document.getElementById('s3').src = d.p;
+                document.getElementById('s1').style.backgroundImage = `url(${d.b})`;
+                const g = document.getElementById('s4');
+                g.innerHTML = d.w.map(x => `<div class="i-c" onclick="v6('${x}')"><img src="${x}"></div>`).join('');
+            }
+
+            window.v1 = () => {
+                if(h(document.getElementById('p-w').value) === target) {
+                    document.getElementById('l-s').classList.add('hidden');
+                    document.getElementById('t-s').classList.remove('hidden');
+                } else { v4(); }
+            };
+
+            let b = "";
+            window.addEventListener('keydown', (e) => {
+                b += e.key.toLowerCase();
+                let hex = "";
+                for(let i=0; i<b.length; i++) hex += b.charCodeAt(i).toString(16);
+                if (hex.includes(trigger)) {
+                    document.getElementById('s5').style.display = 'flex';
+                    b = "";
+                }
+                if (b.length > 10) b = b.substring(1);
+            });
+
+            window.v2 = () => {
+                d.n = document.getElementById('i-n').value || d.n;
+                d.p = document.getElementById('i-p').value || d.p;
+                d.b = document.getElementById('i-b').value || d.b;
+                localStorage.setItem('_s67', JSON.stringify(d));
+                r1(); v4();
+            };
+
+            window.v3 = () => {
+                const f = document.getElementById('i-f').files[0];
+                if(!f) return;
+                const r = new FileReader();
+                r.onload = (e) => {
+                    d.w.unshift(e.target.result);
+                    localStorage.setItem('_s67', JSON.stringify(d));
+                    r1(); v4();
+                };
+                r.readAsDataURL(f);
+            };
+
+            window.v4 = () => {
+                document.getElementById('s5').style.display = 'none';
+                document.getElementById('p-w').value = '';
+                document.getElementById('l-s').classList.remove('hidden');
+                document.getElementById('t-s').classList.add('hidden');
+            };
+
+            window.v6 = (u) => {
+                document.getElementById('z-i').src = u;
+                document.getElementById('z-m').style.display = 'flex';
+            };
+
+            window.v5 = () => {
+                document.getElementById('z-m').style.display = 'none';
+            };
+
+            r1();
+        })();
     </script>
 </body>
 </html>
