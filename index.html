@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Elite</title>
+    <title>Elite Space</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background: #000; color: #fff; font-family: 'Inter', sans-serif; margin: 0; overflow: hidden; }
@@ -18,9 +18,10 @@
         #s5 { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.99); z-index: 9999; align-items: center; justify-content: center; backdrop-filter: blur(25px); }
         .a-b { width: 90%; max-width: 380px; padding: 30px; border: 1px solid #222; border-radius: 20px; background: #000; }
         input { background: #080808 !important; border: 1px solid #222 !important; color: #fff !important; padding: 12px; border-radius: 10px; width: 100%; margin-bottom: 10px; outline: none; }
-        #z-m { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 10000; justify-content: center; align-items: center; padding: 20px; }
-        #z-i { max-width: 95%; max-height: 90vh; object-fit: contain; border-radius: 10px; box-shadow: 0 0 50px rgba(0,0,0,1); }
-        .b-v { position: absolute; top: 20px; right: 20px; background: #fff; color: #000; padding: 10px 20px; border-radius: 50px; font-weight: 900; cursor: pointer; border: none; }
+        #z-m { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 10000; justify-content: center; align-items: center; }
+        #z-i { max-width: 90%; max-height: 85vh; object-fit: contain; border-radius: 8px; }
+        .b-v { position: absolute; top: 30px; right: 30px; background: #fff; color: #000; padding: 12px 25px; border-radius: 50px; font-weight: 900; cursor: pointer; border: none; z-index: 10001; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
@@ -35,114 +36,91 @@
 
     <div id="s5">
         <div class="a-b text-center">
-            <h2 class="font-black mb-8 text-xl tracking-[0.3em] text-blue-600">PROTOCOL 67</h2>
+            <h2 class="font-black mb-8 text-xl tracking-[0.3em] text-blue-600">PROT. 67</h2>
             <div id="l-s">
-                <input type="password" id="p-w" placeholder="SECURE KEY">
-                <button onclick="v1()" class="w-full bg-blue-600 py-4 rounded-xl font-bold">AUTH</button>
+                <input type="password" id="p-w" placeholder="KEY">
+                <button onclick="f1()" class="w-full bg-blue-600 py-4 rounded-xl font-bold">LOGIN</button>
             </div>
-            <div id="t-s" class="hidden text-left">
+            <div id="t-s" class="hidden">
                 <input type="text" id="i-n" placeholder="NICK">
                 <input type="text" id="i-p" placeholder="AVATAR URL">
                 <input type="text" id="i-b" placeholder="BANNER URL">
                 <input type="file" id="i-f" accept="image/*">
-                <button onclick="v2()" class="w-full bg-white text-black py-3 rounded-xl font-bold mb-2 text-xs">UPDATE</button>
-                <button onclick="v3()" class="w-full bg-blue-600 py-3 rounded-xl font-bold text-xs">POST PNG</button>
+                <button onclick="f2()" class="w-full bg-white text-black py-3 rounded-xl font-bold mb-2 text-xs">UPDATE</button>
+                <button onclick="f3()" class="w-full bg-blue-600 py-3 rounded-xl font-bold text-xs uppercase">Post Image</button>
             </div>
-            <button onclick="v4()" class="w-full mt-8 text-zinc-800 text-[10px] font-bold uppercase tracking-widest">EXIT</button>
+            <button onclick="f4()" class="w-full mt-8 text-zinc-800 text-[10px] font-bold uppercase">Close</button>
         </div>
     </div>
 
     <div id="z-m">
-        <button class="b-v" onclick="v5()">VOLTAR</button>
+        <button class="b-v" onclick="f5()">VOLTAR</button>
         <img id="z-i" src="">
     </div>
 
     <script>
-        (function(){
-            let d = JSON.parse(localStorage.getItem('_s67')) || {
-                n: 'SAD_9O',
-                p: 'https://via.placeholder.com/180',
-                b: 'https://via.placeholder.com/1400x350',
-                w: []
-            };
+        let d = JSON.parse(localStorage.getItem('_s67_')) || { n: 'SAD_9O', p: 'https://via.placeholder.com/180', b: 'https://via.placeholder.com/1400x350', w: [] };
 
-            const h = (s) => {
-                let r = 0x811c9dc5;
-                for(let i=0; i<s.length; i++){
-                    r ^= s.charCodeAt(i);
-                    r += (r<<1)+(r<<4)+(r<<7)+(r<<8)+(r<<24);
-                }
-                return (r >>> 0).toString(16);
-            };
+        const h = (s) => {
+            let r = 0x811c9dc5;
+            for(let i=0; i<s.length; i++){ r ^= s.charCodeAt(i); r += (r<<1)+(r<<4)+(r<<7)+(r<<8)+(r<<24); }
+            return (r >>> 0).toString(16);
+        };
 
-            const target = "3df36c7a"; 
-            const trigger = "6368616461646d";
+        const t = "3df36c7a"; 
+        const g = "6368616461646d";
 
-            function r1() {
-                document.getElementById('n1').innerText = d.n;
-                document.getElementById('s3').src = d.p;
-                document.getElementById('s1').style.backgroundImage = `url(${d.b})`;
-                const g = document.getElementById('s4');
-                g.innerHTML = d.w.map(x => `<div class="i-c" onclick="v6('${x}')"><img src="${x}"></div>`).join('');
-            }
+        function r() {
+            document.getElementById('n1').innerText = d.n;
+            document.getElementById('s3').src = d.p;
+            document.getElementById('s1').style.backgroundImage = `url(${d.b})`;
+            const g = document.getElementById('s4');
+            g.innerHTML = d.w.map(x => `<div class="i-c" onclick="f6('${x}')"><img src="${x}"></div>`).join('');
+        }
 
-            window.v1 = () => {
-                if(h(document.getElementById('p-w').value) === target) {
-                    document.getElementById('l-s').classList.add('hidden');
-                    document.getElementById('t-s').classList.remove('hidden');
-                } else { v4(); }
-            };
+        window.f1 = () => {
+            if(h(document.getElementById('p-w').value) === t) {
+                document.getElementById('l-s').classList.add('hidden');
+                document.getElementById('t-s').classList.remove('hidden');
+            } else { f4(); }
+        };
 
-            let b = "";
-            window.addEventListener('keydown', (e) => {
-                b += e.key.toLowerCase();
-                let hex = "";
-                for(let i=0; i<b.length; i++) hex += b.charCodeAt(i).toString(16);
-                if (hex.includes(trigger)) {
-                    document.getElementById('s5').style.display = 'flex';
-                    b = "";
-                }
-                if (b.length > 10) b = b.substring(1);
-            });
+        let b = "";
+        window.onkeydown = (e) => {
+            b += e.key.toLowerCase();
+            let x = "";
+            for(let i=0; i<b.length; i++) x += b.charCodeAt(i).toString(16);
+            if (x.includes(g)) { document.getElementById('s5').style.display = 'flex'; b = ""; }
+            if (b.length > 20) b = "";
+        };
 
-            window.v2 = () => {
-                d.n = document.getElementById('i-n').value || d.n;
-                d.p = document.getElementById('i-p').value || d.p;
-                d.b = document.getElementById('i-b').value || d.b;
-                localStorage.setItem('_s67', JSON.stringify(d));
-                r1(); v4();
-            };
+        window.f2 = () => {
+            d.n = document.getElementById('i-n').value || d.n;
+            d.p = document.getElementById('i-p').value || d.p;
+            d.b = document.getElementById('i-b').value || d.b;
+            localStorage.setItem('_s67_', JSON.stringify(d));
+            r(); f4();
+        };
 
-            window.v3 = () => {
-                const f = document.getElementById('i-f').files[0];
-                if(!f) return;
-                const r = new FileReader();
-                r.onload = (e) => {
-                    d.w.unshift(e.target.result);
-                    localStorage.setItem('_s67', JSON.stringify(d));
-                    r1(); v4();
-                };
-                r.readAsDataURL(f);
-            };
+        window.f3 = () => {
+            const f = document.getElementById('i-f').files[0];
+            if(!f) return;
+            const rd = new FileReader();
+            rd.onload = (e) => { d.w.unshift(e.target.result); localStorage.setItem('_s67_', JSON.stringify(d)); r(); f4(); };
+            rd.readAsDataURL(f);
+        };
 
-            window.v4 = () => {
-                document.getElementById('s5').style.display = 'none';
-                document.getElementById('p-w').value = '';
-                document.getElementById('l-s').classList.remove('hidden');
-                document.getElementById('t-s').classList.add('hidden');
-            };
+        window.f4 = () => {
+            document.getElementById('s5').style.display = 'none';
+            document.getElementById('p-w').value = '';
+            document.getElementById('l-s').classList.remove('hidden');
+            document.getElementById('t-s').classList.add('hidden');
+        };
 
-            window.v6 = (u) => {
-                document.getElementById('z-i').src = u;
-                document.getElementById('z-m').style.display = 'flex';
-            };
+        window.f6 = (u) => { document.getElementById('z-i').src = u; document.getElementById('z-m').style.display = 'flex'; };
+        window.f5 = () => { document.getElementById('z-m').style.display = 'none'; };
 
-            window.v5 = () => {
-                document.getElementById('z-m').style.display = 'none';
-            };
-
-            r1();
-        })();
+        r();
     </script>
 </body>
 </html>
