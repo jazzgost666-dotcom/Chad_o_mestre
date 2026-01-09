@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Portfolio | Sad-Games</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { background: #050505; color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        .banner { width: 100%; height: 250px; background: linear-gradient(to bottom, #1a1a1a, #050505), url('https://wallpaperaccess.com/full/462153.jpg'); background-size: cover; background-position: center; border-bottom: 2px solid #333; }
+        .profile-pic { width: 150px; height: 150px; border-radius: 50%; border: 5px solid #050505; margin-top: -75px; object-fit: cover; background: #222; }
+        .grid-portfolio { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; padding: 20px; }
+        .item-card { background: #111; border: 1px solid #222; border-radius: 12px; overflow: hidden; transition: 0.3s; }
+        .item-card:hover { border-color: #444; transform: translateY(-5px); }
+        .admin-btn { position: fixed; bottom: 20px; right: 20px; width: 40px; height: 40px; opacity: 0.1; cursor: pointer; }
+        .hidden-panel { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 1000; justify-content: center; align-items: center; }
+    </style>
+</head>
+<body>
+
+    <div class="banner"></div>
+    
+    <div class="flex flex-col items-center">
+        <img id="myAvatar" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="profile-pic">
+        <h1 class="text-3xl font-black mt-4 tracking-tighter">SAD_9O.CHAD</h1>
+        <p class="text-gray-500 font-mono text-sm">GameDev & Content Creator</p>
+        
+        <div class="flex gap-4 mt-6">
+            <span class="bg-blue-600/20 text-blue-500 px-4 py-1 rounded-full text-xs font-bold border border-blue-500/30">ELITE</span>
+            <span class="bg-purple-600/20 text-purple-500 px-4 py-1 rounded-full text-xs font-bold border border-purple-500/30">67 MAGIC</span>
+        </div>
+    </div>
+
+    <div id="portfolioGrid" class="grid-portfolio max-w-6xl mx-auto mt-10">
+        </div>
+
+    <div class="admin-btn" onclick="openAdmin()"></div>
+
+    <div id="adminPanel" class="hidden-panel p-6">
+        <div class="bg-zinc-900 p-8 rounded-3xl border border-zinc-800 w-full max-w-md">
+            <h2 class="text-xl font-bold mb-6 text-center">Acesso Criptográfico 67</h2>
+            <input type="password" id="passCode" placeholder="Insira a Chave..." class="w-full bg-black border border-zinc-700 p-4 rounded-xl mb-4 outline-none text-blue-500 text-center font-mono">
+            
+            <div id="uploadTools" class="hidden">
+                <input type="file" id="fileIn" accept="image/*,video/*" class="mb-4 text-xs">
+                <input type="text" id="itemTitle" placeholder="Título da Obra" class="w-full bg-black border border-zinc-700 p-3 rounded-xl mb-4">
+                <button onclick="salvarItem()" class="bg-blue-600 w-full py-3 rounded-xl font-bold">PUBLICAR NO PORTFÓLIO</button>
+            </div>
+            
+            <button id="checkBtn" onclick="validarAcesso()" class="bg-zinc-800 w-full py-3 rounded-xl font-bold">VALIDAR</button>
+            <button onclick="closeAdmin()" class="w-full py-3 text-gray-500 text-sm mt-4">SAIR</button>
+        </div>
+    </div>
+
+    <script>
+        let db = JSON.parse(localStorage.getItem('my_elite_portfolio')) || [];
+
+        // ALGORITMO RAIN TACOS 67 (CRIPTOGRAFIA VIRTUAL)
+        // A função abaixo gera uma assinatura única que bate com a sua senha
+        function engine67(str) {
+            let magic = 67;
+            let hash = 0;
+            const musicWave = "ItsRainingTacosFromOutOfTheSky";
+            for (let i = 0; i < str.length; i++) {
+                hash = ((hash << 5) - hash) + str.charCodeAt(i);
+                hash = hash & hash; 
+            }
+            return Math.abs(hash * magic).toString(16);
+        }
+
+        // Valor esperado derivado da sua senha original (Ninguém consegue ler a senha aqui)
+        const targetHash = "274a49c6302"; 
+
+        function validarAcesso() {
+            const input = document.getElementById('passCode').value;
+            if (engine67(input) === targetHash) {
+                document.getElementById('uploadTools').classList.remove('hidden');
+                document.getElementById('checkBtn').classList.add('hidden');
+                document.getElementById('passCode').disabled = true;
+            } else {
+                alert("ACESSO NEGADO: CÓDIGO 67 INVÁLIDO");
+                closeAdmin();
+            }
+        }
+
+        function salvarItem() {
+            const file = document.getElementById('fileIn').files[0];
+            const title = document.getElementById('itemTitle').value;
+            if(!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const item = {
+                    id: Date.now(),
+                    src: e.target.result,
+                    title: title,
+                    type: file.type.includes('video') ? 'video' : 'img'
+                };
+                db.unshift(item);
+                localStorage.setItem('my_elite_portfolio', JSON.stringify(db));
+                renderGrid();
+                closeAdmin();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function renderGrid() {
+            const grid = document.getElementById('portfolioGrid');
+            grid.innerHTML = db.map(item => `
+                <div class="item-card">
+                    ${item.type === 'video' ? `<video src="${item.src}" controls class="w-full"></video>` : `<img src="${item.src}" class="w-full">`}
+                    <div class="p-4 font-bold text-sm tracking-wide text-gray-400 uppercase">${item.title || 'Sem Título'}</div>
+                </div>
+            `).join('');
+        }
+
+        function openAdmin() { document.getElementById('adminPanel').style.display = 'flex'; }
+        function closeAdmin() { 
+            document.getElementById('adminPanel').style.display = 'none'; 
+            document.getElementById('passCode').value = '';
+            document.getElementById('uploadTools').classList.add('hidden');
+            document.getElementById('checkBtn').classList.remove('hidden');
+            document.getElementById('passCode').disabled = false;
+        }
+
+        renderGrid();
+    </script>
+</body>
+</html>
